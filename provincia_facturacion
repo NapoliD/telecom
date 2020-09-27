@@ -1,0 +1,13 @@
+
+Select a.provincia,
+(marzo+febrero+enero)/3 as promedio_mensual
+from (
+select 
+a.provincia,sum(a.facturacion) as marzo,sum(b.facturacion) as marzo,sum(c.facturacion) as enero
+from provincia a
+left join  facturacion b on a.nro_cliente=b.nro_cliente and b.mes=a.mes-1
+left join  facturacion c on a.nro_cliente=c.nro_cliente and c.mes=a.mes-2
+where a.mes=3
+group by 1) a
+
+order by 2 desc
